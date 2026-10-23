@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Brew & Bean Café</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
+:root{--dark:#2d1b14;--brown:#6f4534;--lb:#a87555;--cream:#faf5ef;--surface:#fff;--gold:#d49a6a;--text:#4b403b;--chip:#eadfd6;--line:#ddd;--shadow:rgba(0,0,0,.1);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--dark:#f3e6d9;--brown:#d49a6a;--lb:#c99672;--cream:#1d1411;--surface:#2a1d18;--text:#d8cbc2;--chip:#3a2a23;--line:#4a3830;--shadow:rgba(0,0,0,.5)}}
+body{font-family:'Montserrat',system-ui,sans-serif;background:var(--cream);color:var(--text);line-height:1.6}
+h1,h2,h3,.logo{font-family:'Playfair Display',Georgia,serif}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:1000;background:var(--surface);box-shadow:0 3px 15px var(--shadow)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:1001;background:var(--surface)}
+.navbar{max-width:1200px;height:75px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:0 25px}
+.logo{font-size:22px;font-weight:700;color:var(--dark)}
+.nav-links{display:flex;list-style:none;gap:35px}
+.nav-links a{text-decoration:none;color:var(--dark);font-weight:600;font-size:14px}
+.nav-links a:hover{color:var(--lb)}
+.menu-toggle{display:none;font-size:27px;cursor:pointer;color:var(--dark)}
+.hero{min-height:620px;display:flex;align-items:center;padding:70px 8%;background:linear-gradient(120deg,#2d1b14,#5a3727 60%,#8a5a40)}
+.hero-content{max-width:600px;color:#fff}
+.small-title{letter-spacing:4px;font-size:13px;margin-bottom:18px}
+.hero h1{font-size:clamp(50px,7vw,88px);line-height:1;margin-bottom:25px}
+.hero h1 span{color:#e6b58d}
+.hero-description{max-width:520px;margin-bottom:30px}
+.hero-buttons{display:flex;gap:15px;flex-wrap:wrap}
+.btn,.btn-outline{padding:14px 26px;border-radius:5px;text-decoration:none;font-weight:600;color:#fff;transition:.3s;display:inline-block}
+.btn{background:var(--gold)}.btn:hover{background:#b8784d;transform:translateY(-3px)}
+.btn-outline{border:1px solid #fff}.btn-outline:hover{background:#fff;color:#2d1b14}
+.features{max-width:1100px;margin:-55px auto 80px;padding:0 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:25px;position:relative}
+.feature-card,.value-card{background:var(--surface);padding:32px 25px;text-align:center;border-radius:10px;box-shadow:0 10px 35px var(--shadow)}
+.feature-icon,.value-card span{font-size:40px}
+.feature-card h3,.value-card h3{color:var(--dark);margin:6px 0}
+.section{padding:90px 25px}
+.section-title{text-align:center;margin-bottom:45px}
+.section-title h2{color:var(--dark);font-size:clamp(34px,5vw,45px)}
+.section-title p,.section-tag{color:var(--lb);letter-spacing:3px;font-size:13px;font-weight:700}
+.about{background:var(--surface)}
+.about-container{max-width:1000px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.about-image{min-height:380px;border-radius:12px;background:url("https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=900&q=80") center/cover,linear-gradient(135deg,#a87555,#d49a6a)}
+.about-content h2,.contact-info h2{color:var(--dark);font-size:38px;line-height:1.2;margin:8px 0 18px}
+.about-content p{margin-bottom:14px}
+.stats{display:flex;gap:40px;margin-top:25px}.stats h3{font-size:30px;color:var(--brown)}.stats p{font-size:12px}
+.value-container{max-width:1000px;margin:60px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:25px}
+.value-card{background:var(--cream);box-shadow:none}
+.menu{background:var(--cream)}
+.menu-buttons{text-align:center;margin-bottom:40px}
+.filter-btn{border:none;background:var(--chip);color:var(--dark);padding:11px 21px;margin:5px;border-radius:25px;cursor:pointer;font:600 14px inherit;font-family:inherit}
+.filter-btn:hover,.filter-btn.active{background:var(--brown);color:#fff}
+.menu-grid{max-width:1200px;margin:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.menu-card{background:var(--surface);padding:20px;display:flex;align-items:center;gap:16px;border-radius:10px;box-shadow:0 5px 20px var(--shadow)}
+.food-icon{width:62px;height:62px;min-width:62px;background:var(--chip);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px}
+.food-icon{overflow:hidden}.food-icon img{width:100%;height:100%;object-fit:cover}
+.menu-info{flex:1}.menu-info h3{color:var(--dark);font-size:17px}.menu-info p{font-size:13px}
+.price{color:var(--brown);font-size:17px;font-weight:700;margin-bottom:6px;text-align:right}
+.add-btn{border:none;background:var(--brown);color:#fff;padding:8px 16px;border-radius:20px;font:600 13px inherit;font-family:inherit;cursor:pointer}
+.add-btn:hover{filter:brightness(1.15)}
+.qty{display:inline-flex;align-items:center;gap:8px}
+.qty button{width:28px;height:28px;border:none;border-radius:50%;background:var(--chip);color:var(--dark);font-size:17px;cursor:pointer;font-weight:700}
+.qty b{min-width:18px;text-align:center;color:var(--dark)}
+.contact{background:var(--surface)}
+.contact-container{max-width:1000px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:60px}
+.contact-item{display:flex;gap:16px;margin:22px 0}
+.contact-icon{width:44px;height:44px;min-width:44px;background:var(--chip);border-radius:50%;display:flex;align-items:center;justify-content:center}
+.contact-item h3{color:var(--dark);font-size:15px}.contact-item p{font-size:13px}
+.contact-form{background:var(--cream);padding:32px;border-radius:10px;box-shadow:0 10px 30px var(--shadow)}
+.contact-form h2{color:var(--dark);margin-bottom:22px}
+.input-group{margin-bottom:16px}
+.input-group label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+.input-group input,.input-group textarea,.input-group select{width:100%;padding:12px;border:1px solid var(--line);border-radius:5px;font-family:inherit;background:var(--surface);color:var(--text);outline:none}
+.input-group input:focus,.input-group textarea:focus,.input-group select:focus{border-color:var(--lb)}
+.submit-btn{width:100%;padding:14px;border:none;border-radius:5px;background:var(--brown);color:#fff;font:600 15px inherit;font-family:inherit;cursor:pointer}
+.submit-btn:hover{filter:brightness(1.15)}
+#formMessage{text-align:center;margin-top:12px;font-size:14px;font-weight:600}
+footer{background:#2d1b14;color:#fff;padding:40px 8%;display:flex;justify-content:space-between;align-items:center}
+footer p{font-size:13px;opacity:.8}
+
+@media(max-width:1000px){.menu-grid{grid-template-columns:repeat(2,1fr)}}
+/* REVIEWS */
+.reviews{background:var(--cream)}
+.rv-summary{text-align:center;margin:-20px 0 30px}
+.rv-summary b{font-size:38px;color:var(--dark);font-family:'Playfair Display',Georgia,serif}
+.stars{color:#e0a030;letter-spacing:2px}
+.rv-grid{max-width:1100px;margin:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.rv-card{background:var(--surface);padding:24px;border-radius:10px;box-shadow:0 5px 20px var(--shadow)}
+.rv-card p{margin:10px 0 14px;font-size:14px}
+.rv-card .who{display:flex;align-items:center;gap:10px;font-weight:600;color:var(--dark);font-size:14px}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--brown);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+.rv-form{max-width:600px;margin:40px auto 0;background:var(--surface)}
+@media(max-width:800px){.rv-grid{grid-template-columns:1fr}}
+
+/* ORDER: floating button + drawer */
+#cartFab{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:1100;border:none;background:var(--gold);color:#2d1b14;border-radius:30px;padding:14px 22px;font:700 15px inherit;font-family:inherit;cursor:pointer;box-shadow:0 8px 25px rgba(0,0,0,.3);display:flex;gap:8px;align-items:center}
+#cartFab .count{background:#2d1b14;color:#fff;border-radius:50%;min-width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;font-size:13px}
+#overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:.3s;z-index:1200}
+#overlay.open{opacity:1;pointer-events:auto}
+#drawer{position:fixed;top:0;right:0;height:100%;width:min(420px,100%);background:var(--surface);z-index:1300;transform:translateX(100%);transition:.35s;display:flex;flex-direction:column;box-shadow:-10px 0 30px rgba(0,0,0,.3);padding-top:env(safe-area-inset-top,0px)}
+#drawer.open{transform:none}
+.d-head{display:flex;justify-content:space-between;align-items:center;padding:20px 22px;border-bottom:1px solid var(--line)}
+.d-head h2{color:var(--dark);font-size:24px}
+.d-head button{background:none;border:none;font-size:26px;cursor:pointer;color:var(--dark)}
+.d-body{flex:1;overflow-y:auto;padding:16px 22px}
+.cart-line{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px dashed var(--line)}
+.cart-line .nm{flex:1}.cart-line .nm b{color:var(--dark);display:block;font-size:14px}
+.cart-line .nm select{margin-top:4px;font-size:12px;padding:3px;border-radius:4px;border:1px solid var(--line);background:var(--surface);color:var(--text)}
+.cart-line .lp{font-weight:700;color:var(--brown);min-width:55px;text-align:right}
+.empty{text-align:center;padding:50px 0;opacity:.7}
+.d-foot{padding:16px 22px calc(18px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line)}
+.row{display:flex;justify-content:space-between;margin:4px 0;font-size:14px}
+.row.total{font-size:19px;font-weight:700;color:var(--dark);margin:10px 0 14px}
+.checkout{display:none}.checkout.show{display:block}
+.checkout .input-group{margin-bottom:10px}
+.success{text-align:center;padding:40px 10px}
+.success .big{font-size:60px}.success h3{color:var(--dark);font-size:24px;margin:10px 0}
+.toast{position:fixed;left:50%;bottom:90px;transform:translate(-50%,20px);background:#2d1b14;color:#fff;padding:10px 20px;border-radius:25px;font-size:13px;opacity:0;transition:.3s;z-index:1400;pointer-events:none}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media(max-width:800px){
+.nav-links{position:absolute;top:75px;left:0;width:100%;background:var(--surface);display:none;flex-direction:column;padding:25px;gap:20px;box-shadow:0 10px 20px var(--shadow)}
+.nav-links.show{display:flex}.menu-toggle{display:block}
+.features,.about-container,.contact-container,.value-container,.menu-grid{grid-template-columns:1fr}
+.features{margin-top:30px}footer{flex-direction:column;text-align:center;gap:15px}
+}
+</style>
+</head>
+<body>
+
+<header><nav class="navbar">
+  <div class="logo">☕ BREW & BEAN</div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li><li><a href="#about">About Us</a></li><li><a href="#menu">Menu</a></li><li><a href="#reviews">Reviews</a></li><li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">☰</div>
+</nav></header>
+
+<section id="home" class="hero"><div class="hero-content">
+  <p class="small-title">WELCOME TO BREW & BEAN</p>
+  <h1>Good Coffee.<br><span>Good Mood.</span></h1>
+  <p class="hero-description">Freshly brewed coffee, delicious bites and a cozy atmosphere made for your perfect moments.</p>
+  <div class="hero-buttons"><a href="#menu" class="btn">Order Now</a><a href="#contact" class="btn-outline">Visit Us</a></div>
+</div></section>
+
+<section class="features">
+  <div class="feature-card"><div class="feature-icon">☕</div><h3>Fresh Coffee</h3><p>Premium beans freshly brewed for every cup.</p></div>
+  <div class="feature-card"><div class="feature-icon">🥐</div><h3>Fresh Bites</h3><p>Delicious snacks and bakery treats every day.</p></div>
+  <div class="feature-card"><div class="feature-icon">♥</div><h3>Cozy Place</h3><p>A comfortable space to relax, work and connect.</p></div>
+</section>
+
+<section id="about" class="section about">
+  <div class="section-title"><p>GET TO KNOW US</p><h2>About Brew & Bean</h2></div>
+  <div class="about-container">
+    <div class="about-image"></div>
+    <div class="about-content">
+      <p class="section-tag">OUR STORY</p>
+      <h2>A Little Café<br>With A Big Passion</h2>
+      <p>Brew & Bean started with a simple dream — to create a beautiful place where people can enjoy great coffee and meaningful moments.</p>
+      <p>From carefully selected coffee beans to freshly baked treats, we believe that quality and happiness belong in every cup.</p>
+      <div class="stats">
+        <div><h3>5+</h3><p>Years Experience</p></div><div><h3>20+</h3><p>Coffee Choices</p></div><div><h3>10K+</h3><p>Happy Customers</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="value-container">
+    <div class="value-card"><span>☕</span><h3>Quality Coffee</h3><p>Carefully selected premium coffee beans.</p></div>
+    <div class="value-card"><span>🌱</span><h3>Fresh Ingredients</h3><p>Fresh ingredients are used for our food.</p></div>
+    <div class="value-card"><span>😊</span><h3>Friendly Service</h3><p>We always welcome our customers with a smile.</p></div>
+  </div>
+</section>
+
+<section id="menu" class="section menu">
+  <div class="section-title"><p>WHAT WE SERVE</p><h2>Order From Our Menu</h2></div>
+  <div class="menu-buttons" id="filters"></div>
+  <div class="menu-grid" id="menuGrid"></div>
+</section>
+
+<section id="reviews" class="section reviews">
+  <div class="section-title"><p>WHAT PEOPLE SAY</p><h2>Customer Reviews</h2></div>
+  <div class="rv-summary" id="rvSummary"></div>
+  <div class="rv-grid" id="rvGrid"></div>
+  <div class="contact-form rv-form">
+    <h2>Write a Review</h2>
+    <div class="input-group"><label>Your Name</label><input type="text" id="rvName" placeholder="Enter your name"></div>
+    <div class="input-group"><label>Rating</label><select id="rvStars"><option value="5">★★★★★ (5)</option><option value="4">★★★★☆ (4)</option><option value="3">★★★☆☆ (3)</option><option value="2">★★☆☆☆ (2)</option><option value="1">★☆☆☆☆ (1)</option></select></div>
+    <div class="input-group"><label>Your Review</label><textarea id="rvText" rows="4" placeholder="Tell us about your experience"></textarea></div>
+    <button type="button" class="submit-btn" onclick="addReview()">Submit Review</button>
+    <p id="rvMsg" style="text-align:center;margin-top:12px;font-size:14px;font-weight:600"></p>
+  </div>
+</section>
+
+<section id="contact" class="section contact">
+  <div class="section-title"><p>WE’D LOVE TO HEAR FROM YOU</p><h2>Contact Us</h2></div>
+  <div class="contact-container">
+    <div class="contact-info">
+      <p class="section-tag">GET IN TOUCH</p>
+      <h2>Let’s Have A<br>Coffee Together</h2>
+      <div class="contact-item"><div class="contact-icon">📍</div><div><h3>Address</h3><p>24 Coffee Street, Chennai, India</p></div></div>
+      <div class="contact-item"><div class="contact-icon">📞</div><div><h3>Phone</h3><p>+91 98765 43210</p></div></div>
+      <div class="contact-item"><div class="contact-icon">✉️</div><div><h3>Email</h3><p>hello@brewandbean.com</p></div></div>
+      <div class="contact-item"><div class="contact-icon">🕒</div><div><h3>Opening Hours</h3><p>Mon - Sun : 8:00 AM - 10:00 PM</p></div></div>
+    </div>
+    <div class="contact-form">
+      <h2>Send Us A Message</h2>
+      <form id="contactForm">
+        <div class="input-group"><label>Your Name</label><input type="text" id="name" placeholder="Enter your name"></div>
+        <div class="input-group"><label>Email Address</label><input type="email" id="email" placeholder="Enter your email"></div>
+        <div class="input-group"><label>Subject</label><input type="text" id="subject" placeholder="Enter subject"></div>
+        <div class="input-group"><label>Message</label><textarea id="message" rows="5" placeholder="Write your message"></textarea></div>
+        <button type="submit" class="submit-btn">Send Message</button>
+        <p id="formMessage"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div><h3>☕ BREW & BEAN</h3><p>Modern coffee. Warm moments.</p></div>
+  <div><p>© 2026 Brew & Bean Café</p></div>
+</footer>
+
+<!-- ORDER UI -->
+<button id="cartFab" onclick="openCart()" aria-label="Open cart">🛒 <span>Your Order</span> <span class="count" id="fabCount">0</span></button>
+<div id="overlay" onclick="closeCart()"></div>
+<aside id="drawer" aria-label="Your order">
+  <div class="d-head"><h2>Your Order</h2><button onclick="closeCart()" aria-label="Close">✕</button></div>
+  <div class="d-body" id="cartBody"></div>
+  <div class="d-foot" id="cartFoot"></div>
+</aside>
+<div class="toast" id="toast"></div>
+
+<script>
+var MENU=[
+ {id:1,c:'coffee',i:'☕',n:'Classic Cappuccino',d:'Rich espresso with creamy steamed milk.',p:140},
+ {id:2,c:'coffee',i:'☕',n:'Café Latte',d:'Smooth espresso with silky milk.',p:150},
+ {id:3,c:'coffee',i:'🧊',n:'Iced Coffee',d:'Chilled coffee with creamy foam.',p:160},
+ {id:4,c:'tea',i:'🍵',n:'Green Tea',d:'Fresh and refreshing green tea.',p:100},
+ {id:5,c:'tea',i:'🫖',n:'Masala Tea',d:'Traditional tea with aromatic spices.',p:90},
+ {id:6,c:'tea',i:'🍋',n:'Lemon Tea',d:'Light, zesty and refreshing.',p:95},
+ {id:7,c:'tea',i:'🥛',n:'Ginger Tea',d:'Warm tea with fresh ginger kick.',p:95},
+ {id:8,c:'food',i:'🥪',n:'Veg Sandwich',d:'Fresh vegetables with creamy dressing.',p:130},
+ {id:12,c:'food',i:'🥐',n:'Butter Croissant',d:'Freshly baked crispy croissant.',p:110},
+ {id:13,c:'food',i:'🍔',n:'Veg Burger',d:'Crispy veg patty with fresh veggies.',p:150},
+ {id:14,c:'food',i:'🌯',n:'Paneer Wrap',d:'Spiced paneer rolled in a soft wrap.',p:140},
+ {id:15,c:'food',i:'🍟',n:'French Fries',d:'Golden crispy fries with seasoning.',p:99},
+ {id:16,c:'food',i:'🌭',n:'Veg Hot Dog',d:'Soft bun with a tasty veg sausage.',p:120},
+ {id:17,c:'food',i:'🥞',n:'Pancakes',d:'Fluffy pancakes with honey drizzle.',p:160},
+ {id:18,c:'food',i:'🍝',n:'White Sauce Pasta',d:'Creamy pasta with herbs and veggies.',p:190},
+ {id:19,c:'food',i:'🧇',n:'Waffle',d:'Crisp waffle with chocolate sauce.',p:170},
+ {id:20,c:'food',i:'🍞',n:'Garlic Bread',d:'Toasted bread with garlic butter.',p:120},
+ {id:9,c:'pizza',i:'🍕',n:'Veg Margherita Pizza',d:'Classic tomato, mozzarella and basil.',p:199},
+ {id:21,c:'pizza',i:'🍕',n:'Veg Cheese Burst Pizza',d:'Loaded with a molten cheese centre.',p:280},
+ {id:22,c:'pizza',i:'🍕',n:'Veg Farmhouse Pizza',d:'Capsicum, onion, tomato and mushroom.',p:260},
+ {id:23,c:'pizza',i:'🍕',n:'Veggie Supreme Pizza',d:'Loaded with seven fresh vegetables.',p:270},
+ {id:24,c:'pizza',i:'🍕',n:'Paneer Tikka Pizza',d:'Tandoori paneer with onions and peppers.',p:290},
+ {id:25,c:'pizza',i:'🍕',n:'BBQ Chicken Pizza',d:'Smoky BBQ sauce with grilled chicken.',p:300},
+ {id:26,c:'pizza',i:'🍕',n:'Chicken Supreme Pizza',d:'Chicken, sausage, onion and capsicum.',p:320},
+ {id:27,c:'pizza',i:'🍕',n:'Peri Peri Chicken Pizza',d:'Spicy peri peri chicken with onions.',p:315},
+ {id:28,c:'pizza',i:'🍕',n:'Chicken Tikka Pizza',d:'Smoky chicken tikka with onions.',p:310},
+ {id:29,c:'pizza',i:'🍕',n:'Chicken Pepperoni Pizza',d:'Spicy chicken pepperoni with mozzarella.',p:330},
+ {id:30,c:'chicken',i:'🍗',n:'Classic Fried Chicken',d:'Crispy golden fried chicken, served hot.',p:220},
+ {id:31,c:'chicken',i:'🍗',n:'Spicy Chicken Wings',d:'Hot and spicy crunchy wings.',p:200},
+ {id:32,c:'chicken',i:'🍗',n:'Chicken Popcorn',d:'Bite-sized crispy chicken pieces.',p:180},
+ {id:33,c:'chicken',i:'🍗',n:'Chicken Strips',d:'Tender strips with a crunchy coating.',p:210},
+ {id:34,c:'chicken',i:'🍔',n:'Crispy Chicken Burger',d:'Fried chicken fillet in a toasted bun.',p:190},
+ {id:10,c:'dessert',i:'🍰',n:'Chocolate Cake',d:'Soft chocolate cake with creamy topping.',p:180},
+ {id:11,c:'dessert',i:'🍪',n:'Chocolate Cookies',d:'Crunchy cookies with chocolate chips.',p:80},
+ {id:35,c:'dessert',i:'🍩',n:'Glazed Donut',d:'Soft donut with sweet sugar glaze.',p:90},
+ {id:36,c:'dessert',i:'🧁',n:'Red Velvet Cupcake',d:'Moist cupcake with cream cheese frosting.',p:110},
+ {id:37,c:'dessert',i:'🍨',n:'Vanilla Ice Cream',d:'Creamy vanilla scoops with a wafer.',p:100},
+ {id:38,c:'dessert',i:'🍫',n:'Choco Brownie',d:'Fudgy brownie with walnut bits.',p:120},
+ {id:39,c:'dessert',i:'🍮',n:'Caramel Pudding',d:'Silky pudding with caramel syrup.',p:110},
+ {id:40,c:'dessert',i:'🥧',n:'Apple Pie',d:'Warm pie with cinnamon apple filling.',p:150},
+ {id:41,c:'dessert',i:'🍓',n:'Strawberry Cheesecake',d:'Creamy cheesecake with strawberry topping.',p:200},
+ {id:42,c:'dessert',i:'🥤',n:'Chocolate Milkshake',d:'Thick shake with chocolate and ice cream.',p:170}
+];
+var CATS=[['all','All'],['tea','Tea'],['coffee','Coffee'],['food','Food'],['pizza','Pizza'],['chicken','Fried Chicken'],['dessert','Desserts']];
+var SUGAR=['Regular sugar','Less sugar','No sugar','Extra sugar'];
+var cart={}, cat='all', placed=false, lastOrder=null;
+try{var s=JSON.parse(localStorage.getItem('bb_cart')||'{}');if(s&&typeof s==='object')cart=s;}catch(e){}
+
+function $(id){return document.getElementById(id)}
+function item(id){return MENU.find(function(m){return m.id==id})}
+function icon(m){return m.c==='pizza'?'<img src="https://loremflickr.com/150/150/pizza?lock='+m.id+'" alt="'+m.n+'" loading="lazy" onerror="this.outerHTML=\''+m.i+'\'">':m.i}
+function save(){try{localStorage.setItem('bb_cart',JSON.stringify(cart))}catch(e){}}
+function toast(t){var el=$('toast');el.textContent=t;el.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(function(){el.classList.remove('show')},1600)}
+
+function renderFilters(){
+  $('filters').innerHTML=CATS.map(function(c){return '<button class="filter-btn'+(c[0]===cat?' active':'')+'" onclick="setCat(\''+c[0]+'\')">'+c[1]+'</button>'}).join('');
+}
+function setCat(c){cat=c;renderFilters();renderMenu()}
+function renderMenu(){
+  $('menuGrid').innerHTML=MENU.filter(function(m){return cat==='all'||m.c===cat}).map(function(m){
+    var q=cart[m.id]?cart[m.id].q:0;
+    var ctl=q?'<span class="qty"><button onclick="chg('+m.id+',-1)">−</button><b>'+q+'</b><button onclick="chg('+m.id+',1)">+</button></span>':'<button class="add-btn" onclick="chg('+m.id+',1)">+ Add</button>';
+    return '<div class="menu-card"><div class="food-icon">'+icon(m)+'</div><div class="menu-info"><h3>'+m.n+'</h3><p>'+m.d+'</p></div><div><div class="price">₹'+m.p+'</div>'+ctl+'</div></div>';
+  }).join('');
+}
+function chg(id,d){
+  var m=item(id);
+  if(!cart[id]){if(d<0)return;cart[id]={q:0,sugar:SUGAR[0]};toast(m.n+' added')}
+  cart[id].q+=d;
+  if(cart[id].q<=0)delete cart[id];
+  save();refresh();
+}
+function setSugar(id,v){if(cart[id]){cart[id].sugar=v;save()}}
+function totals(){
+  var n=0,t=0;
+  Object.keys(cart).forEach(function(id){n+=cart[id].q;t+=cart[id].q*item(id).p});
+  return {n:n,t:t};
+}
+function refresh(){
+  var T=totals();$('fabCount').textContent=T.n;
+  renderMenu();renderCart();
+}
+function openCart(){placed=false;renderCart();$('drawer').classList.add('open');$('overlay').classList.add('open')}
+function closeCart(){$('drawer').classList.remove('open');$('overlay').classList.remove('open')}
+
+function renderCart(){
+  var ids=Object.keys(cart),T=totals(),body=$('cartBody'),foot=$('cartFoot');
+  if(placed&&lastOrder){
+    body.innerHTML='<div class="success"><div class="big">🎉</div><h3>Order Placed!</h3><p>Thank you, '+esc(lastOrder.name)+'.</p><p style="margin-top:10px"><b>Order #'+lastOrder.no+'</b></p><p>'+esc(lastOrder.type)+' · Total ₹'+lastOrder.total+'</p><p style="margin-top:10px;font-size:13px">Your order will be ready in about 10–15 minutes.</p></div>';
+    foot.innerHTML='<button class="submit-btn" onclick="closeCart()">Done</button>';return;
+  }
+  if(!ids.length){
+    body.innerHTML='<div class="empty"><div style="font-size:50px">🍵</div><p>Your cart is empty.<br>Add some tea or coffee!</p></div>';
+    foot.innerHTML='<button class="submit-btn" onclick="closeCart();location.hash=\'menu\'">Browse Menu</button>';return;
+  }
+  body.innerHTML=ids.map(function(id){
+    var m=item(id),L=cart[id];
+    var sel=(m.c==='tea'||m.c==='coffee')?'<select onchange="setSugar('+id+',this.value)">'+SUGAR.map(function(s){return '<option'+(s===L.sugar?' selected':'')+'>'+s+'</option>'}).join('')+'</select>':'';
+    return '<div class="cart-line"><div class="food-icon" style="width:44px;height:44px;min-width:44px;font-size:22px">'+m.i+'</div><div class="nm"><b>'+m.n+'</b>'+sel+'</div><span class="qty"><button onclick="chg('+id+',-1)">−</button><b>'+L.q+'</b><button onclick="chg('+id+',1)">+</button></span><div class="lp">₹'+L.q*m.p+'</div></div>';
+  }).join('');
+  var gst=Math.round(T.t*0.05);
+  foot.innerHTML=
+   '<div class="row"><span>Subtotal</span><span>₹'+T.t+'</span></div><div class="row"><span>GST (5%)</span><span>₹'+gst+'</span></div><div class="row total"><span>Total</span><span>₹'+(T.t+gst)+'</span></div>'+
+   '<div class="checkout show">'+
+   '<div class="input-group"><input id="oName" placeholder="Your name"></div>'+
+   '<div class="input-group"><input id="oPhone" type="tel" placeholder="Phone number (10 digits)"></div>'+
+   '<div class="input-group"><select id="oType" onchange="$(\'oTable\').style.display=this.value===\'Dine-in\'?\'block\':\'none\'"><option>Dine-in</option><option>Takeaway</option></select></div>'+
+   '<div class="input-group"><input id="oTable" placeholder="Table number"></div>'+
+   '<p id="oErr" style="color:#c0392b;font-size:13px;margin-bottom:8px"></p>'+
+   '<button class="submit-btn" onclick="placeOrder('+(T.t+gst)+')">Place Order · ₹'+(T.t+gst)+'</button></div>';
+}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function placeOrder(total){
+  var name=$('oName').value.trim(),ph=$('oPhone').value.trim(),type=$('oType').value,tb=$('oTable').value.trim(),err=$('oErr');
+  if(!name){err.textContent='Please enter your name.';return}
+  if(!/^[6-9]\d{9}$/.test(ph)){err.textContent='Enter a valid 10-digit phone number.';return}
+  if(type==='Dine-in'&&!tb){err.textContent='Please enter your table number.';return}
+  lastOrder={no:'BB'+Math.floor(1000+Math.random()*9000),name:name,type:type==='Dine-in'?'Dine-in (Table '+tb+')':'Takeaway',total:total};
+  placed=true;cart={};save();refresh();
+}
+
+/* contact form */
+$('contactForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  var f=['name','email','subject','message'].map(function(i){return $(i).value.trim()}),m=$('formMessage');
+  if(f.some(function(v){return!v})){m.textContent='Please fill in all fields.';m.style.color='#c0392b';return}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f[1])){m.textContent='Please enter a valid email address.';m.style.color='#c0392b';return}
+  m.textContent='Thank you! Your message has been sent successfully.';m.style.color='#2e8b57';this.reset();
+});
+document.querySelectorAll('.nav-links a').forEach(function(a){a.addEventListener('click',function(){document.querySelector('.nav-links').classList.remove('show')})});
+
+/* reviews */
+var REVIEWS=[
+ 
+ 
+ 
+ 
+ 
+ 
+];
+try{var rs=JSON.parse(localStorage.getItem('bb_reviews')||'[]');if(Array.isArray(rs))REVIEWS=rs;}catch(e){}
+function starStr(n){return '★★★★★'.slice(0,n)+'☆☆☆☆☆'.slice(0,5-n)}
+function renderReviews(){
+  if(!REVIEWS.length){$('rvSummary').innerHTML='<p>No reviews yet. Be the first to share your experience!</p>';$('rvGrid').innerHTML='';return}
+  var sum=REVIEWS.reduce(function(a,r){return a+r.r},0),avg=(sum/REVIEWS.length).toFixed(1);
+  $('rvSummary').innerHTML='<b>'+avg+'</b> <span class="stars">'+starStr(Math.round(avg))+'</span><p>Based on '+REVIEWS.length+' reviews</p>';
+  $('rvGrid').innerHTML=REVIEWS.slice(0,9).map(function(r){return '<div class="rv-card"><span class="stars">'+starStr(r.r)+'</span><p>“'+esc(r.t)+'”</p><div class="who"><span class="avatar">'+esc(r.n.charAt(0).toUpperCase())+'</span>'+esc(r.n)+'</div></div>'}).join('');
+}
+function addReview(){
+  var n=$('rvName').value.trim(),t=$('rvText').value.trim(),r=parseInt($('rvStars').value,10),m=$('rvMsg');
+  if(!n||!t){m.textContent='Please enter your name and review.';m.style.color='#c0392b';return}
+  var nr={n:n,r:r,t:t};REVIEWS.unshift(nr);
+  try{var st=JSON.parse(localStorage.getItem('bb_reviews')||'[]');st.unshift(nr);localStorage.setItem('bb_reviews',JSON.stringify(st))}catch(e){}
+  $('rvName').value='';$('rvText').value='';
+  m.textContent='Thank you for your review!';m.style.color='#2e8b57';renderReviews();
+}
+renderReviews();
+
+renderFilters();refresh();
+</script>
+</body>
+</html>
